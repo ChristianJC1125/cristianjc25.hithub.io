@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(./img/Fondo6.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+
+  @media screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    .list {
+        flex-direction: column;
+    }
+    input[type="text"] {
+        width: 100%;
+    }
+    .addTaskButton, .orderButton {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#new-task-input, #add-task-btn, .filter-btn {
+    padding: 10px;
+    margin: 5px;
+}
+
+#new-task-input {
+    width: calc(100% - 128px);
+}
+
+#add-task-btn, .filter-btn {
+    cursor: pointer;
+}
+
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li {
+    margin: 10px 0;
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#task-list li.completed {
+    text-decoration: line-through;
+}
+
+.filters {
+    text-align: center;
+    margin: 20px 0;
+}
+
+@media (max-width: 600px) {
+    #new-task-input {
+        width: calc(100% - 140px);
+    }
+}
