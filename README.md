@@ -1,4 +1,4 @@
-	Reporte del Proyecto de Gestión  de Tareas 
+		Reporte del Proyecto de Gestión  de Tareas 
  
 NOMBRE: CHRISTIAN DE JESUS 
 	CUENCA 
@@ -36,7 +36,45 @@ El uso del almacenamiento local del navegador para guardar las tareas asegura qu
 
 Siguiendo las mejores prácticas de diseño web responsivo, se utilizó una combinación de Flexbox, unidades relativas y media queries para asegurar que la aplicación se vea y funcione bien en una amplia gama de dispositivos. Este enfoque garantiza que los elementos de la interfaz se ajusten dinámicamente para aprovechar el espacio disponible, mejorando la experiencia del usuario en dispositivos con diferentes tamaños de pantalla.
 
-## Conclusión
+Claro, vamos a desglosar el código proporcionado para tu aplicación de gestión de tareas, explicando cada parte y cómo contribuye a las funcionalidades solicitadas. Este código crea una web básica pero funcional que permite a los usuarios crear, visualizar, editar y eliminar tareas, además de filtrarlas por su estado. La aplicación también es responsiva, gracias al uso de Flexbox, unidades relativas y media queries.
+
+### Estructura HTML
+
+La base de la aplicación es un archivo HTML que estructura la interfaz de usuario. Tiene las siguientes partes principales:
+
+- **`<header>`**: Contiene un título (`<h1>`) y un formulario (`<form id="task-form">`) con un campo de entrada para las nuevas tareas y un botón para agregarlas. Este formulario se usa para capturar las tareas que el usuario desea agregar.
+- **`<ul id="task-list">`**: Es el contenedor donde se listarán las tareas. Cada tarea agregada se convertirá en un elemento de lista (`<li>`) dentro de este contenedor.
+- **`<footer>`**: Contiene tres botones que permiten filtrar las tareas por su estado (todas, activas, completadas), utilizando un atributo `data-filter` para distinguir entre los filtros.
+
+### Estilos CSS
+
+Los estilos proporcionan la presentación visual y la responsividad de la aplicación. Algunos puntos clave son:
+
+- **Flexbox**: Se utiliza en el contenedor principal (`.container`), el `<header>`, y el `<footer>` para un diseño flexible que se ajusta al tamaño de la pantalla. Esto es especialmente útil para mantener la aplicación usable en dispositivos móviles y de escritorio.
+- **Unidades Relativas**: Se usan unidades como `%`, `rem`, y `em` para tamaños de fuente, márgenes, y dimensiones de elementos. Esto hace que el diseño sea más fluido y adaptable a diferentes tamaños de pantalla.
+- **Media Queries**: Permiten ajustar estilos específicos según el tamaño del dispositivo, como cambiar la disposición de elementos de fila a columna en pantallas pequeñas.
+
+### JavaScript
+
+El script es el corazón de la funcionalidad de la aplicación. A continuación, se detallan sus partes principales:
+
+- **Inicialización y Renderizado de Tareas**: Al cargar la página, se recuperan las tareas almacenadas en el almacenamiento local del navegador y se muestran mediante `renderTasks()`.
+- **Agregar Nuevas Tareas**: La función `addTask` se dispara al enviar el formulario. Crea un nuevo objeto de tarea, lo añade al array de tareas, lo guarda en el almacenamiento local y actualiza la lista de tareas en la UI.
+- **Marcar Tareas como Completadas y Eliminar Tareas**: Se manejan mediante las funciones `toggleComplete` y `deleteTask`, respectivamente. Estas funciones modifican el array de tareas y actualizan el almacenamiento local y la UI.
+- **Editar Texto de Tareas**: La edición se hace directamente en el elemento de la lista gracias a `contenteditable="true"`. Al perder el foco (`onblur`), se captura el nuevo texto y se actualiza la tarea correspondiente.
+- **Filtrar Tareas**: Los botones de filtro en el `<footer>` permiten al usuario visualizar todas las tareas, solo las activas o solo las completadas. La función `filterTasks` ajusta qué tareas se muestran basándose en el filtro seleccionado.
+
+### Almacenamiento Local
+
+El uso del almacenamiento local del navegador (`localStorage`) permite que las tareas persistan entre sesiones del navegador. Las tareas se guardan como una cadena JSON y se recuperan al cargar la página, asegurando que el usuario no pierda sus tareas al recargar o cerrar el navegador.
+
+### Conclusión
+
+Este código combina HTML, CSS y JavaScript para crear una aplicación de gestión de tareas que es funcional y responsiva. Demuestra conceptos fundamentales del desarrollo web, como manipulación del DOM, almacenamiento local, y diseño responsivo, ofreciendo una base sólida sobre la cual se pueden agregar más características y personalizaciones.
+
+
+
+## Conclusión sobre el proyecto
 
 El proyecto de Gestión de Tareas cumple con todos los requisitos especificados, ofreciendo una solución efectiva para la gestión de tareas diarias. La implementación de características avanzadas, como la edición de tareas y el filtrado por estado, junto con la capacidad de almacenar tareas en el almacenamiento local, proporciona una herramienta robusta y fácil de usar que mejora la productividad del usuario.
 
