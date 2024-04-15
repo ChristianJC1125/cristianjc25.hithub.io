@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tareas</title>
-    <link rel="stylesheet" href="lista.css">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="estiloo.css">
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Tareas</h1>
-        <input type="text" id="new-task-input" placeholder="Añadir nueva tarea" autofocus>
-        <button id="add-task-btn">Agregar Tarea</button>
-        <div class="filters">
-            <button class="filter-btn" data-filter="all">Todas</button>
-            <button class="filter-btn" data-filter="active">Activas</button>
-            <button class="filter-btn" data-filter="completed">Completadas</button>
-        </div>
-        <ul id="task-list"></ul>
-        <div class="movil"></div>
-        <div class="tablet"></div>
+        <h1>Task Manager</h1>
+        <input type="text" id="taskInput" placeholder="Add new task">
+        <button onclick="addTask()">Add Task</button>
+        <label for="startDateTime">Start Date & Time:</label>
+        <input type="datetime-local" id="startDateTime">
+        <label for="endDateTime">End Date & Time:</label>
+        <input type="datetime-local" id="endDateTime">
+        <ul id="taskList"></ul>
     </div>
-    <script src="lista.js"></script>
+
+    <script src="datos.js"></script>
 </body>
 </html>
