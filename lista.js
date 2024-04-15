@@ -1,70 +1,82 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('add-task-btn');
-    const input = document.getElementById('new-task-input');
-    const taskList = document.getElementById('task-list');
-    const filters = document.querySelectorAll('.filter-btn');
 
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        taskList.appendChild(li);
+        taskInput.value = "";
+        saveTasks();
 
-    const renderTasks = () => {
-        taskList.innerHTML = '';
-        tasks.forEach((task, index) => {
-            const taskElement = document.createElement('li');
-            taskElement.textContent = task.text;
-            if (task.completed) taskElement.classList.add('completed');
-            taskElement.addEventListener('click', () => {
-                tasks[index].completed = !tasks[index].completed;
-                updateLocalStorage();
-                renderTasks();
-            });
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Eliminar';
-            deleteButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                tasks.splice(index, 1);
-                updateLocalStorage();
-                renderTasks();
-            });
-            taskElement.appendChild(deleteButton);
-            taskList.appendChild(taskElement);
-        });
-    };
 
-    const updateLocalStorage = () => {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    };
+function completeTask(button) {
+    var task = button.parentElement.parentElement;
+    task.classList.toggle("completed");
+    saveTasks();
+}
 
-    addButton.addEventListener('click', () => {
-        const taskText = input.value.trim();
-        if (taskText) {
-            tasks.push({ text: taskText, completed: false });
-            updateLocalStorage();
-            renderTasks();
-            input.value = '';
-        }
+function editTask(button) {
+    var task = button.parentElement.parentElement;
+    var textSpan = task.querySelector("span:first-child");
+    var newText = prompt("Edit task:", textSpan.textContent);
+    if (newText !== null) {
+        textSpan.textContent = newText;
+        saveTasks();
+    }
+}
+
+function deleteTask(button) {
+    var task = button.parentElement.parentElement;
+    task.remove();
+    saveTasks();
+}
+
+function setStartDate(button) {
+    var task = button.parentElement.parentElement;
+    var startDateSpan = task.querySelector("#startDate");
+    var startDate = new Date();
+    startDateSpan.textContent = startDate.toLocaleString();
+    saveTasks();
+}
+
+function setEndDate(button) {
+    var task = button.parentElement.parentElement;
+    var endDateSpan = task.querySelector("#endDate");
+    var endDate = new Date();
+    endDateSpan.textContent = endDate.toLocaleString();
+    saveTasks();
+}
+
+function saveTasks() {
+    var tasks = [];
+    var taskList = document.getElementById("taskList").children;
+    for (var i = 0; i < taskList.length; i++) {
+        var task = taskList[i];
+        var taskText = task.querySelector("span:first-child").textContent;
+        var startDate = task.querySelector("#startDate").textContent;
+        var endDate = task.querySelector("#endDate").textContent;
+        var completed = task.classList.contains("completed");
+        tasks.push({ text: taskText, startDate: startDate, endDate: endDate, completed: completed });
+    }
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    var taskList = document.getElementById("taskList");
+    tasks.forEach(function(task) {
+        var li = document.createElement("li");
+        li.innerHTML = `
+            <div class="task${task.completed ? ' completed' : ''}">
+                <span>${task.text}</span>
+                <span>Start: <span id="startDate">${task.startDate}</span></span>
+                <span>End: <span id="endDate">${task.endDate}</span></span>
+                <div class="actions">
+                    <button onclick="completeTask(this)">Complete</button>
+                    <button onclick="editTask(this)">Edit</button>
+                    <button onclick="deleteTask(this)">Delete</button>
+                    <button onclick="setStartDate(this)">Set Start Date</button>
+                    <button onclick="setEndDate(this)">Set End Date</button>
+                </div>
+            </div>
+        `;
+        taskList.appendChild(li);
     });
+}
 
-    filters.forEach(filter => {
-        filter.addEventListener('click', (e) => {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-            const filterValue = e.target.dataset.filter;
-            let filteredTasks = [];
-            if (filterValue === 'all') {
-                renderTasks();
-            } else {
-                const isCompleted = filterValue === 'completed';
-                filteredTasks = tasks.filter(task => task.completed === isCompleted);
-                taskList.innerHTML = '';
-                filteredTasks.forEach((task, index) => {
-                    const taskElement = document.createElement('li');
-                    taskElement.textContent = task.text;
-                    if (task.completed) taskElement.classList.add('completed');
-                    taskList.appendChild(taskElement);
-                });
-            }
-        });
-    });
-
-    renderTasks();
-});
+loadTasks();
